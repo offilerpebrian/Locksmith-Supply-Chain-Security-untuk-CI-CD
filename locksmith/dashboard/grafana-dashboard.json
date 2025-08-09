@@ -1,0 +1,16 @@
+{
+  "title": "Locksmith \u2014 Supply Chain Security",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Signed Images",
+      "id": 1
+    },
+    {
+      "type": "graph",
+      "title": "High/Critical CVEs over time",
+      "id": 2
+    }
+  ],
+  "schemaVersion": 30
+}

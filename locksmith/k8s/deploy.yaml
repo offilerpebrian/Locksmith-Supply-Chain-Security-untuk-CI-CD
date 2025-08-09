@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: locksmith-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: locksmith-demo
+  template:
+    metadata:
+      labels:
+        app: locksmith-demo
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/ORG/REPO/app:latest # replace via CI or use SHA
+          ports:
+            - containerPort: 8000
+          env:
+            - name: APP_VERSION
+              value: "k8s"
+      # Example: initContainer could verify signature before main container runs
+      initContainers:
+        - name: verify-signature
+          image: ghcr.io/sigstore/cosign:v2.2.4
+          command: ["sh","-c"]
+          args:
+            - >
+              cosign verify ghcr.io/ORG/REPO/app:latest >/dev/null
